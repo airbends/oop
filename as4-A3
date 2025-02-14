@@ -1,0 +1,45 @@
+#include <iostream.h>
+#include <conio.h>
+
+class MyPoint {
+    int x, y;
+
+public:
+    MyPoint() {
+        x = 0;
+        y = 0;
+    }
+
+    MyPoint(int a, int b) {
+        x = a;
+        y = b;
+    }
+
+    MyPoint(const MyPoint &p) {
+        x = p.x;
+        y = p.y;
+    }
+
+    void display() {
+        cout << "Point: (" << x << ", " << y << ")" << endl;
+    }
+};
+
+void main() {
+    clrscr();
+    
+    MyPoint p1;
+    MyPoint p2(10, 20);
+    MyPoint p3(p2);
+
+    cout << "Default Constructor: ";
+    p1.display();
+
+    cout << "Parameterized Constructor: ";
+    p2.display();
+
+    cout << "Copy Constructor: ";
+    p3.display();
+
+    getch();
+}
