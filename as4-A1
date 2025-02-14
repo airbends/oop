@@ -1,0 +1,42 @@
+#include <iostream.h>
+#include <conio.h>
+
+class MyNumber {
+    int num1, num2, num3;
+
+public:
+    MyNumber() {
+        num1 = num2 = num3 = 0;
+    }
+
+    MyNumber(int a, int b, int c = 10) {
+        num1 = a;
+        num2 = b;
+        num3 = c;
+    }
+
+    void displayAverage() {
+        float avg = (num1 + num2 + num3) / 3.0;
+        cout << "Numbers: " << num1 << ", " << num2 << ", " << num3;
+        cout << " | Average: " << avg << endl;
+    }
+};
+
+void main() {
+    clrscr();
+
+    MyNumber obj1;
+    MyNumber obj2(5, 10, 15);
+    MyNumber obj3(8, 12); 
+
+    cout << "Object 1: ";
+    obj1.displayAverage();
+    
+    cout << "Object 2: ";
+    obj2.displayAverage();
+    
+    cout << "Object 3: ";
+    obj3.displayAverage();
+
+    getch();
+}
