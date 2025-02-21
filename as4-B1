@@ -1,0 +1,45 @@
+#include <iostream.h>
+#include <conio.h>
+
+class MyArray {
+    int *arr, size;
+
+public:
+    MyArray(int n) {
+        size = n;
+        arr = new int[size];
+    }
+
+    void accept() {
+        for (int i = 0; i < size; i++) cin >> arr[i];
+    }
+
+    void displayEven() {
+        for (int i = 0; i < size; i++) if (arr[i] % 2 == 0) cout << arr[i] << " ";
+        cout << endl;
+    }
+
+    void displayOdd() {
+        for (int i = 0; i < size; i++) if (arr[i] % 2 != 0) cout << arr[i] << " ";
+        cout << endl;
+    }
+
+    ~MyArray() {
+        delete[] arr;
+    }
+};
+
+void main() {
+    clrscr();
+    int n;
+    cout << "Enter the number of elements: ";
+    cin >> n;
+    MyArray obj(n);
+    cout << "Enter the elements: ";
+    obj.accept();
+    cout << "Even elements: ";
+    obj.displayEven();
+    cout << "Odd elements: ";
+    obj.displayOdd();
+    getch();
+}
