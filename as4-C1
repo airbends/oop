@@ -1,0 +1,82 @@
+#include <iostream.h>
+#include <conio.h>
+#include <string.h>
+
+class Student {
+    int rollno;
+    char name[50];
+    int numSubjects;
+    int *marks;
+
+public:
+    Student(int r, const char* n, int num);
+    void acceptMarks();
+    void displayDetails();
+    ~Student();
+};
+
+Student::Student(int r, const char* n, int num) {
+    rollno = r;
+    strcpy(name, n);
+    numSubjects = num;
+    marks = new int[numSubjects];
+}
+
+void Student::acceptMarks() {
+    cout << "Enter the marks for " << numSubjects << " subjects: ";
+    for (int i = 0; i < numSubjects; i++) {
+        cin >> marks[i];
+    }
+}
+
+void Student::displayDetails() {
+    int total = 0;
+    for ( i = 0; i < numSubjects; i++) {
+        total += marks[i];
+    }
+    float percentage = (float)total / numSubjects;
+    cout << "Roll No: " << rollno << endl;
+    cout << "Name: " << name << endl;
+    cout << "Number of Subjects: " << numSubjects << endl;
+    cout << "Marks: ";
+    for (int i = 0; i < numSubjects; i++) {
+        cout << marks[i] << " ";
+    }
+    cout << endl;
+    cout << "Percentage: " << percentage << "%" << endl;
+
+    if (percentage >= 75) {
+        cout << "Class: Distinction" << endl;
+    } else if (percentage >= 60) {
+        cout << "Class: First Class" << endl;
+    } else if (percentage >= 50) {
+        cout << "Class: Second Class" << endl;
+    } else if (percentage >= 35) {
+        cout << "Class: Pass" << endl;
+    } else {
+        cout << "Class: Fail" << endl;
+    }
+}
+
+Student::~Student() {
+    delete[] marks;
+}
+
+void main() {
+    clrscr();
+    int rollno, numSubjects;
+    char name[50];
+
+    cout << "Enter Roll No: ";
+    cin >> rollno;
+    cout << "Enter Name: ";
+    cin >> name;
+    cout << "Enter Number of Subjects: ";
+    cin >> numSubjects;
+
+    Student student(rollno, name, numSubjects);
+    student.acceptMarks();
+    student.displayDetails();
+
+    getch();
+}
