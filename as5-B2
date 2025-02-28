@@ -1,0 +1,148 @@
+#include <iostream.h>
+#include <conio.h>
+#include <string.h>
+
+class Employee {
+public:
+    int emp_code;
+    char name[50];
+
+    void readEmployeeDetails() {
+        cout << "Enter Employee Code: ";
+        cin >> emp_code;
+        cout << "Enter Name: ";
+        cin >> name;
+    }
+
+    void displayEmployeeDetails() {
+        cout << "Employee Code: " << emp_code << endl;
+        cout << "Name: " << name << endl;
+    }
+};
+
+class Fulltime : public Employee {
+public:
+    float daily_rate, number_of_days, salary;
+
+    void readFulltimeDetails() {
+        readEmployeeDetails();
+        cout << "Enter Daily Rate: ";
+        cin >> daily_rate;
+        cout << "Enter Number of Days: ";
+        cin >> number_of_days;
+        salary = daily_rate * number_of_days;
+    }
+
+    void displayFulltimeDetails() {
+        displayEmployeeDetails();
+        cout << "Daily Rate: " << daily_rate << endl;
+        cout << "Number of Days: " << number_of_days << endl;
+        cout << "Salary: " << salary << endl;
+    }
+};
+
+class Parttime : public Employee {
+public:
+    float hourly_rate, number_of_hours, salary;
+
+    void readParttimeDetails() {
+        readEmployeeDetails();
+        cout << "Enter Hourly Rate: ";
+        cin >> hourly_rate;
+        cout << "Enter Number of Working Hours: ";
+        cin >> number_of_hours;
+        salary = hourly_rate * number_of_hours;
+    }
+
+    void displayParttimeDetails() {
+        displayEmployeeDetails();
+        cout << "Hourly Rate: " << hourly_rate << endl;
+        cout << "Number of Working Hours: " << number_of_hours << endl;
+        cout << "Salary: " << salary << endl;
+    }
+};
+
+void main() {
+    clrscr();
+    Fulltime fulltime_employees[50];
+    Parttime parttime_employees[50];
+    int n_fulltime, n_parttime, choice, search_code, found = 0;
+
+    cout << "Enter the number of full-time employees: ";
+    cin >> n_fulltime;
+    for (int i = 0; i < n_fulltime; i++) {
+        cout << "\nEnter details for Full-time Employee " << (i + 1) << ":\n";
+        fulltime_employees[i].readFulltimeDetails();
+    }
+
+    cout << "Enter the number of part-time employees: ";
+    cin >> n_parttime;
+    for (int i = 0; i < n_parttime; i++) {
+        cout << "\nEnter details for Part-time Employee " << (i + 1) << ":\n";
+        parttime_employees[i].readParttimeDetails();
+    }
+
+    do {
+        cout << "\nMenu:\n";
+        cout << "1. Display details of Full-time Employees\n";
+        cout << "2. Display details of Part-time Employees\n";
+        cout << "3. Search for an Employee\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            cout << "\nFull-time Employees:\n";
+            for (int i = 0; i < n_fulltime; i++) {
+                cout << "\nEmployee " << (i + 1) << ":\n";
+                fulltime_employees[i].displayFulltimeDetails();
+            }
+            break;
+
+        case 2:
+            cout << "\nPart-time Employees:\n";
+            for (int i = 0; i < n_parttime; i++) {
+                cout << "\nEmployee " << (i + 1) << ":\n";
+                parttime_employees[i].displayParttimeDetails();
+            }
+            break;
+
+        case 3:
+            cout << "Enter Employee Code to Search: ";
+            cin >> search_code;
+            found = 0;
+            for (int i = 0; i < n_fulltime; i++) {
+                if (fulltime_employees[i].emp_code == search_code) {
+                    cout << "\nFull-time Employee Found:\n";
+                    fulltime_employees[i].displayFulltimeDetails();
+                    found = 1;
+                    break;
+                }
+            }
+            if (!found) {
+                for (int i = 0; i < n_parttime; i++) {
+                    if (parttime_employees[i].emp_code == search_code) {
+                        cout << "\nPart-time Employee Found:\n";
+                        parttime_employees[i].displayParttimeDetails();
+                        found = 1;
+                        break;
+                    }
+                }
+            }
+            if (!found) {
+                cout << "Employee Not Found.\n";
+            }
+            break;
+
+        case 4:
+            cout << "Exiting...\n";
+            break;
+
+        default:
+            cout << "Invalid choice. Try again.\n";
+        }
+    } while (choice != 4);
+
+    getch();
+}
