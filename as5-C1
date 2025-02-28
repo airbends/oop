@@ -1,0 +1,138 @@
+#include <iostream.h>
+#include <conio.h>
+
+class Student {
+public:
+    int Roll_No;
+    char Name[50];
+    char Class[20];
+
+    void readStudentDetails() {
+        cout << "Enter Roll Number: ";
+        cin >> Roll_No;
+        cout << "Enter Name: ";
+        cin >> Name;
+        cout << "Enter Class: ";
+        cin >> Class;
+    }
+
+    void displayStudentDetails() {
+        cout << "Roll Number: " << Roll_No << endl;
+        cout << "Name: " << Name << endl;
+        cout << "Class: " << Class << endl;
+    }
+};
+
+class Internal_Marks : virtual public Student {
+public:
+    float IntM1, IntM2, IntM3, IntM4, IntM5;
+
+    void readInternalMarks() {
+        cout << "Enter Internal Marks for Subject 1: ";
+        cin >> IntM1;
+        cout << "Enter Internal Marks for Subject 2: ";
+        cin >> IntM2;
+        cout << "Enter Internal Marks for Subject 3: ";
+        cin >> IntM3;
+        cout << "Enter Internal Marks for Subject 4: ";
+        cin >> IntM4;
+        cout << "Enter Internal Marks for Subject 5: ";
+        cin >> IntM5;
+    }
+};
+
+class External_Marks : virtual public Student {
+public:
+    float ExtM1, ExtM2, ExtM3, ExtM4, ExtM5;
+
+    void readExternalMarks() {
+        cout << "Enter External Marks for Subject 1: ";
+        cin >> ExtM1;
+        cout << "Enter External Marks for Subject 2: ";
+        cin >> ExtM2;
+        cout << "Enter External Marks for Subject 3: ";
+        cin >> ExtM3;
+        cout << "Enter External Marks for Subject 4: ";
+        cin >> ExtM4;
+        cout << "Enter External Marks for Subject 5: ";
+        cin >> ExtM5;
+    }
+};
+
+class Result : public Internal_Marks, public External_Marks {
+public:
+    float T1, T2, T3, T4, T5;
+
+    void calculateTotalMarks() {
+        T1 = IntM1 + ExtM1;
+        T2 = IntM2 + ExtM2;
+        T3 = IntM3 + ExtM3;
+        T4 = IntM4 + ExtM4;
+        T5 = IntM5 + ExtM5;
+    }
+
+    void checkPassStatus() {
+        cout << "Subject 1: " << (IntM1 >= 10 && ExtM1 >= 10 && T1 >= 40 ? "Pass" : "Fail") << endl;
+        cout << "Subject 2: " << (IntM2 >= 10 && ExtM2 >= 10 && T2 >= 40 ? "Pass" : "Fail") << endl;
+        cout << "Subject 3: " << (IntM3 >= 10 && ExtM3 >= 10 && T3 >= 40 ? "Pass" : "Fail") << endl;
+        cout << "Subject 4: " << (IntM4 >= 10 && ExtM4 >= 10 && T4 >= 40 ? "Pass" : "Fail") << endl;
+        cout << "Subject 5: " << (IntM5 >= 10 && ExtM5 >= 10 && T5 >= 40 ? "Pass" : "Fail") << endl;
+    }
+
+    void displayResult() {
+        displayStudentDetails();
+        cout << "Total Marks - Subject 1: " << T1 << endl;
+        cout << "Total Marks - Subject 2: " << T2 << endl;
+        cout << "Total Marks - Subject 3: " << T3 << endl;
+        cout << "Total Marks - Subject 4: " << T4 << endl;
+        cout << "Total Marks - Subject 5: " << T5 << endl;
+        cout << "Pass Status:\n";
+        checkPassStatus();
+    }
+};
+
+void main() {
+    clrscr();
+    int n, choice;
+    Result students[50];
+
+    cout << "Enter the number of students: ";
+    cin >> n;
+
+    do {
+        cout << "\nMenu:\n";
+        cout << "1. Accept Student Details\n";
+        cout << "2. Display Student Details and Results\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            for (int i = 0; i < n; i++) {
+                cout << "\nEnter details for Student " << (i + 1) << ":\n";
+                students[i].readStudentDetails();
+                students[i].readInternalMarks();
+                students[i].readExternalMarks();
+                students[i].calculateTotalMarks();
+            }
+            break;
+
+        case 2:
+            for (int i = 0; i < n; i++) {
+                cout << "\nDetails for Student " << (i + 1) << ":\n";
+                students[i].displayResult();
+            }
+            break;
+
+        case 3:
+            cout << "Exiting...\n";
+            break;
+
+        default:
+            cout << "Invalid choice. Try again.\n";
+        }
+    } while (choice != 3);
+
+    getch();
+}
