@@ -1,0 +1,88 @@
+#include <iostream.h>
+#include <conio.h>
+#include <string.h>
+
+class Personnel {
+public:
+    char name[50];
+    char address[100];
+    char email_id[50];
+    char birth_date[20];
+
+    void readPersonnelDetails() {
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter Address: ";
+        cin >> address;
+        cout << "Enter Email ID: ";
+        cin >> email_id;
+        cout << "Enter Birth Date: ";
+        cin >> birth_date;
+    }
+
+    void displayPersonnelDetails() {
+        cout << "Name: " << name << endl;
+        cout << "Address: " << address << endl;
+        cout << "Email ID: " << email_id << endl;
+        cout << "Birth Date: " << birth_date << endl;
+    }
+};
+
+class Academic {
+public:
+    float marks_in_tenth;
+    float marks_in_twelth;
+    char class_obtained[20];
+
+    void readAcademicDetails() {
+        cout << "Enter Marks in Tenth: ";
+        cin >> marks_in_tenth;
+        cout << "Enter Marks in Twelfth: ";
+        cin >> marks_in_twelth;
+        cout << "Enter Class Obtained: ";
+        cin >> class_obtained;
+    }
+
+    void displayAcademicDetails() {
+        cout << "Marks in Tenth: " << marks_in_tenth << endl;
+        cout << "Marks in Twelfth: " << marks_in_twelth << endl;
+        cout << "Class Obtained: " << class_obtained << endl;
+    }
+};
+
+class BioData : public Personnel, public Academic {
+public:
+    void readBioData() {
+        readPersonnelDetails();
+        readAcademicDetails();
+    }
+
+    void displayBioData() {
+        displayPersonnelDetails();
+        displayAcademicDetails();
+    }
+};
+
+void main() {
+    clrscr();
+    int n;
+
+    cout << "Enter the number of students: ";
+    cin >> n;
+
+    BioData students[50];
+
+    for (int i = 0; i < n; i++) {
+        cout << "\nEnter details for Student " << (i + 1) << ":\n";
+        students[i].readBioData();
+    }
+
+    cout << "\nDisplaying details of all students:\n";
+
+    for ( i = 0; i < n; i++) {
+        cout << "\nDetails for Student " << (i + 1) << ":\n";
+        students[i].displayBioData();
+    }
+
+    getch();
+}
