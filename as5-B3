@@ -1,0 +1,123 @@
+#include <iostream.h>
+#include <conio.h>
+
+class Student {
+public:
+    int Roll_No;
+    char Name[50];
+
+    void readStudentDetails() {
+        cout << "Enter Roll Number: ";
+        cin >> Roll_No;
+        cout << "Enter Name: ";
+        cin >> Name;
+    }
+
+    void displayStudentDetails() {
+        cout << "Roll Number: " << Roll_No << endl;
+        cout << "Name: " << Name << endl;
+    }
+};
+
+class Academic_Marks : virtual public Student {
+public:
+    float Mark1, Mark2, Mark3;
+
+    void readAcademicMarks() {
+        cout << "Enter Marks for Subject 1: ";
+        cin >> Mark1;
+        cout << "Enter Marks for Subject 2: ";
+        cin >> Mark2;
+        cout << "Enter Marks for Subject 3: ";
+        cin >> Mark3;
+    }
+
+    void displayAcademicMarks() {
+        cout << "Marks in Subject 1: " << Mark1 << endl;
+        cout << "Marks in Subject 2: " << Mark2 << endl;
+        cout << "Marks in Subject 3: " << Mark3 << endl;
+    }
+};
+
+class Extra_Activities_Marks : virtual public Student {
+public:
+    float ExtraMarks;
+
+    void readExtraMarks() {
+        cout << "Enter Marks for Extra Activities: ";
+        cin >> ExtraMarks;
+    }
+
+    void displayExtraMarks() {
+        cout << "Marks for Extra Activities: " << ExtraMarks << endl;
+    }
+};
+
+class Result : public Academic_Marks, public Extra_Activities_Marks {
+public:
+    float Total_Marks;
+    char Grade;
+
+    void calculateTotalAndGrade() {
+        Total_Marks = Mark1 + Mark2 + Mark3 + ExtraMarks;
+
+        if (Total_Marks >= 90) Grade = 'A';
+        else if (Total_Marks >= 75) Grade = 'B';
+        else if (Total_Marks >= 50) Grade = 'C';
+        else Grade = 'F';
+    }
+
+    void displayResult() {
+        displayStudentDetails();
+        displayAcademicMarks();
+        displayExtraMarks();
+        cout << "Total Marks: " << Total_Marks << endl;
+        cout << "Grade: " << Grade << endl;
+    }
+};
+
+void main() {
+    clrscr();
+    int n, choice;
+    Result students[50];
+
+    cout << "Enter the number of students: ";
+    cin >> n;
+
+    do {
+        cout << "\nMenu:\n";
+        cout << "1. Build Master Table\n";
+        cout << "2. Display All Results\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            for (int i = 0; i < n; i++) {
+                cout << "\nEnter details for Student " << (i + 1) << ":\n";
+                students[i].readStudentDetails();
+                students[i].readAcademicMarks();
+                students[i].readExtraMarks();
+                students[i].calculateTotalAndGrade();
+            }
+            break;
+
+        case 2:
+            for (int i = 0; i < n; i++) {
+                cout << "\nDetails for Student " << (i + 1) << ":\n";
+                students[i].displayResult();
+            }
+            break;
+
+        case 3:
+            cout << "Exiting...\n";
+            break;
+
+        default:
+            cout << "Invalid choice. Try again.\n";
+        }
+    } while (choice != 3);
+
+    getch();
+}
