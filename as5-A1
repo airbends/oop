@@ -1,0 +1,59 @@
+#include <iostream.h>
+#include <conio.h>
+#include <string.h>
+
+class Product {
+public:
+    int Product_Id;
+    char Product_Name[50];
+    float Price;
+
+    Product(int id, char name[], float price) {
+        Product_Id = id;
+        strcpy(Product_Name, name);
+        Price = price;
+    }
+};
+
+class Discount : public Product {
+public:
+    float Discount_In_Percentage;
+
+    Discount(int id, char name[], float price, float discount) : Product(id, name, price) {
+        Discount_In_Percentage = discount;
+    }
+
+    float calculateDiscount() {
+        return (Price * Discount_In_Percentage) / 100;
+    }
+};
+
+void main() {
+    clrscr();
+    int n, id;
+    char name[50];
+    float price, discount, totalPrice = 0, totalDiscount = 0;
+
+    cout << "Enter the number of products: ";
+    cin >> n;
+
+    for (int i = 0; i < n; i++) {
+        cout << "Enter Product ID: ";
+        cin >> id;
+        cout << "Enter Product Name: ";
+        cin >> name;
+        cout << "Enter Product Price: ";
+        cin >> price;
+        cout << "Enter Discount Percentage: ";
+        cin >> discount;
+
+        Discount d(id, name, price, discount);
+        totalPrice += price;
+        totalDiscount += d.calculateDiscount();
+    }
+
+    cout << "Total Price: " << totalPrice << endl;
+    cout << "Total Discount: " << totalDiscount << endl;
+
+    getch();
+}
