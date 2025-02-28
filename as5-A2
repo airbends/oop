@@ -1,0 +1,84 @@
+#include <iostream.h>
+#include <conio.h>
+
+class Customer {
+public:
+    char name[50];
+    char phone_number[15];
+
+    void readCustomerDetails() {
+        cout << "Enter Customer Name: ";
+        cin >> name;
+        cout << "Enter Phone Number: ";
+        cin >> phone_number;
+    }
+
+    void displayCustomerDetails() {
+        cout << "Name: " << name << endl;
+        cout << "Phone Number: " << phone_number << endl;
+    }
+};
+
+class Depositor : public Customer {
+public:
+    int accno;
+    float balance;
+
+    void readDepositorDetails() {
+        readCustomerDetails();
+        cout << "Enter Account Number: ";
+        cin >> accno;
+        cout << "Enter Balance: ";
+        cin >> balance;
+    }
+
+    void displayDepositorDetails() {
+        displayCustomerDetails();
+        cout << "Account Number: " << accno << endl;
+        cout << "Balance: " << balance << endl;
+    }
+};
+
+class Borrower : public Depositor {
+public:
+    int loan_no;
+    float loan_amt;
+
+    void readBorrowerDetails() {
+        readDepositorDetails();
+        cout << "Enter Loan Number: ";
+        cin >> loan_no;
+        cout << "Enter Loan Amount: ";
+        cin >> loan_amt;
+    }
+
+    void displayBorrowerDetails() {
+        displayDepositorDetails();
+        cout << "Loan Number: " << loan_no << endl;
+        cout << "Loan Amount: " << loan_amt << endl;
+    }
+};
+
+void main() {
+    clrscr();
+    int n;
+
+    cout << "Enter the number of customers: ";
+    cin >> n;
+
+    Borrower b[50];
+
+    for (int i = 0; i < n; i++) {
+        cout << "\nEnter details for Customer " << (i + 1) << ":\n";
+        b[i].readBorrowerDetails();
+    }
+
+    cout << "\nDisplaying details of all customers:\n";
+
+    for ( i = 0; i < n; i++) {
+        cout << "\nDetails for Customer " << (i + 1) << ":\n";
+        b[i].displayBorrowerDetails();
+    }
+
+    getch();
+}
