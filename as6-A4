@@ -1,0 +1,60 @@
+#include<iostream.h>
+#include<conio.h>
+
+class Integer {
+    int num;
+
+public:
+    Integer(int n) {
+        num = n;
+    }
+
+    void display() {
+        cout << "Value: " << num << endl;
+    }
+
+    Integer operator+(Integer obj) {
+        return Integer(num + obj.num);
+    }
+
+    Integer operator-(Integer obj) {
+        return Integer(num - obj.num);
+    }
+
+    Integer operator*(Integer obj) {
+        return Integer(num * obj.num);
+    }
+
+    Integer operator/(Integer obj) {
+        if (obj.num == 0) {
+            cout << "Error: Division by zero!" << endl;
+            return Integer(0);
+        }
+        return Integer(num / obj.num);
+    }
+};
+
+void main() {
+    clrscr();
+
+    Integer a(10), b(5);
+
+    Integer sum = a + b;
+    Integer diff = a - b;
+    Integer prod = a * b;
+    Integer div = a / b;
+
+    cout << "Addition: ";
+    sum.display();
+
+    cout << "Subtraction: ";
+    diff.display();
+
+    cout << "Multiplication: ";
+    prod.display();
+
+    cout << "Division: ";
+    div.display();
+
+    getch();
+}
