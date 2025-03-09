@@ -1,0 +1,49 @@
+#include<iostream.h>
+#include<conio.h>
+
+class Employee {
+    int E_no;
+    char E_Name[50], Designation[50];
+    float Salary;
+
+public:
+    void accept() {
+        cout << "Enter Employee Number: ";
+        cin >> E_no;
+        cout << "Enter Employee Name: ";
+        cin >> E_Name;
+        cout << "Enter Designation: ";
+        cin >> Designation;
+        cout << "Enter Salary: ";
+        cin >> Salary;
+    }
+
+    void display() {
+        cout << "Employee Number: " << E_no << endl;
+        cout << "Employee Name: " << E_Name << endl;
+        cout << "Designation: " << Designation << endl;
+        cout << "Salary: " << Salary << endl;
+    }
+
+    Employee* maxSalary(Employee* e) {
+        return (this->Salary > e->Salary) ? this : e;
+    }
+};
+
+void main() {
+    clrscr();
+    Employee e1, e2, *maxEmp;
+
+    cout << "Enter details for Employee 1:\n";
+    e1.accept();
+    
+    cout << "Enter details for Employee 2:\n";
+    e2.accept();
+
+    maxEmp = e1.maxSalary(&e2);
+
+    cout << "\nEmployee with highest salary:\n";
+    maxEmp->display();
+
+    getch();
+}
