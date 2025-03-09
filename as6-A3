@@ -1,0 +1,44 @@
+#include<iostream.h>
+#include<conio.h>
+
+class Integer {
+    int num;
+
+public:
+    Integer(int n) {
+        num = n;
+    }
+
+    void display() {
+        cout << "Value: " << num << endl;
+    }
+
+    Integer operator--() {
+        --num;
+        return *this;
+    }
+
+    Integer operator--(int) {
+        Integer temp = *this;
+        num--;
+        return temp;
+    }
+};
+
+void main() {
+    clrscr();
+    Integer n(10);
+
+    cout << "Original Value:\n";
+    n.display();
+
+    --n;
+    cout << "After Pre-Decrement:\n";
+    n.display();
+
+    n--;
+    cout << "After Post-Decrement:\n";
+    n.display();
+
+    getch();
+}
