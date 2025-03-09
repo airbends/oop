@@ -1,0 +1,40 @@
+#include<iostream.h>
+#include<conio.h>
+#include<math.h>
+
+class Point {
+    int x, y;
+
+public:
+    Point(int a, int b) {
+        x = a;
+        y = b;
+    }
+
+    void display() {
+        cout << "Point: (" << x << ", " << y << ")" << endl;
+    }
+
+    friend float operator-(Point p1, Point p2);
+};
+
+float operator-(Point p1, Point p2) {
+    return sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
+}
+
+void main() {
+    clrscr();
+
+    Point p1(3, 4), p2(7, 1);
+
+    cout << "First ";
+    p1.display();
+
+    cout << "Second ";
+    p2.display();
+
+    float distance = p1 - p2;
+    cout << "Distance between points: " << distance << endl;
+
+    getch();
+}
