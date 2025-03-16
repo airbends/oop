@@ -1,0 +1,43 @@
+#include<iostream.h>
+#include<conio.h>
+#include<iomanip.h> // For setw() and setfill()
+
+class Teacher {
+    char Teacher_Name[50], Teacher_City[50], Teacher_Contact_Number[15];
+
+public:
+    void accept() {
+        cout << "Enter Teacher Name: ";
+        cin.ignore();
+        cin.getline(Teacher_Name, 50);
+        cout << "Enter Teacher City: ";
+        cin.getline(Teacher_City, 50);
+        cout << "Enter Teacher Contact Number: ";
+        cin >> Teacher_Contact_Number;
+    }
+
+    void display() {
+        cout << setw(20) << Teacher_Name 
+             << setw(15) << Teacher_City
+             << setw(15) << setfill('*') << setw(10) << Teacher_Contact_Number << setfill(' ') << endl;
+    }
+};
+
+void main() {
+    clrscr();
+
+    Teacher T[5];
+    for(int i = 0; i < 5; i++) {
+        cout << "\nEnter details of Teacher " << i + 1 << ":\n";
+        T[i].accept();
+    }
+
+    cout << "\nTeacher Details:\n";
+    cout << setw(20) << "Name" << setw(15) << "City" << setw(15) << "Contact No" << endl;
+    
+    for(int i = 0; i < 5; i++) {
+        T[i].display();
+    }
+
+    getch();
+}
