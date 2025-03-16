@@ -1,0 +1,101 @@
+#include<iostream.h>
+#include<conio.h>
+#include<fstream.h>
+#include<string.h>
+
+class Employee {
+    int Emp_No;
+    char Emp_Name[30];
+    float Emp_Marks;
+
+public:
+    void accept() {
+        cout << "\nEnter Employee Number: ";
+        cin >> Emp_No;
+        cout << "Enter Employee Name: ";
+        cin >> Emp_Name;
+        cout << "Enter Employee Marks: ";
+        cin >> Emp_Marks;
+    }
+
+    void display() {
+        cout << "\n" << Emp_No << "\t" << Emp_Name << "\t" << Emp_Marks;
+    }
+
+    int getEmpNo() {
+        return Emp_No;
+    }
+};
+
+// Function to write employee data to file
+void writeToFile() {
+    Employee e;
+    ofstream fout("Emp.dat", ios::binary | ios::app);
+    e.accept();
+    fout.write((char*)&e, sizeof(e));
+    fout.close();
+    cout << "\nRecord Added Successfully!";
+}
+
+// Function to read and display all employee data from file
+void readFromFile() {
+    Employee e;
+    ifstream fin("Emp.dat", ios::binary);
+    if (!fin) {
+        cout << "\nFile Not Found!";
+        return;
+    }
+    cout << "\nEmp_No\tEmp_Name\tEmp_Marks";
+    while (fin.read((char*)&e, sizeof(e))) {
+        e.display();
+    }
+    fin.close();
+}
+
+// Function to update an employee record
+void updateRecord() {
+    Employee e;
+    fstream file("Emp.dat", ios::binary | ios::in | ios::out);
+    if (!file) {
+        cout << "\nFile Not Found!";
+        return;
+    }
+    int empNo, found = 0;
+    cout << "\nEnter Employee Number to Update: ";
+    cin >> empNo;
+
+    while (file.read((char*)&e, sizeof(e))) {
+        if (e.getEmpNo() == empNo) {
+            cout << "\nEnter New Details:\n";
+            e.accept();
+            file.seekp(-sizeof(e), ios::cur);
+            file.write((char*)&e, sizeof(e));
+            found = 1;
+            cout << "\nRecord Updated Successfully!";
+            break;
+        }
+    }
+    if (!found) cout << "\nRecord Not Found!";
+    file.close();
+}
+
+// Main menu
+void main() {
+    clrscr();
+    int choice;
+    do {
+        cout << "\n\n1. Add Employee\n2. Display Employees\n3. Update Employee\n4. Exit";
+        cout << "\nEnter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: writeToFile(); break;
+            case 2: readFromFile(); break;
+            case 3: updateRecord(); break;
+            case 4: exit(0);
+            default: cout << "\nInvalid Choice!";
+        }
+    } while (choice != 4);
+
+    getch();
+}
