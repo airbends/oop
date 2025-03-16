@@ -1,0 +1,37 @@
+#include<iostream.h>
+#include<conio.h>
+#include<fstream.h>
+#include<stdlib.h>
+
+void main(int argc, char *argv[]) {
+    clrscr();
+    
+    if (argc < 2) {
+        cout << "Usage: Enter numbers as command line arguments.";
+        getch();
+        return;
+    }
+
+    ofstream posFile("Positive.txt"), negFile("Negative.txt");
+
+    if (!posFile || !negFile) {
+        cout << "Error opening files!";
+        getch();
+        return;
+    }
+
+    for (int i = 1; i < argc; i++) {
+        int num = atoi(argv[i]);
+        
+        if (num >= 0)
+            posFile << num << "\n";
+        else
+            negFile << num << "\n";
+    }
+
+    posFile.close();
+    negFile.close();
+    
+    cout << "Numbers stored successfully!";
+    getch();
+}
