@@ -1,0 +1,86 @@
+#include<iostream.h>
+#include<conio.h>
+#include<string.h>
+
+class Manager {
+    int Manager_Id, Salary;
+    char Manager_Name[50], Mobile_No[15];
+
+public:
+    void accept() {
+        cout << "Enter Manager ID: ";
+        cin >> Manager_Id;
+        cout << "Enter Manager Name: ";
+        cin.ignore();
+        cin.getline(Manager_Name, 50);
+        cout << "Enter Mobile No.: ";
+        cin >> Mobile_No;
+        cout << "Enter Salary: ";
+        cin >> Salary;
+    }
+
+    void display() {
+        cout << "\nManager ID: " << Manager_Id;
+        cout << "\nName: " << Manager_Name;
+        cout << "\nMobile No.: " << Mobile_No;
+        cout << "\nSalary: " << Salary << "\n";
+    }
+
+    int getSalary() {
+        return Salary;
+    }
+
+    int search(int id) {
+        return (Manager_Id == id);
+    }
+};
+
+void main() {
+    clrscr();
+    
+    int n, i, j, id;
+    Manager temp;
+    
+    cout << "Enter number of managers: ";
+    cin >> n;
+
+    Manager M[n];
+
+    for(i = 0; i < n; i++) {
+        cout << "\nEnter details of Manager " << i + 1 << ":\n";
+        M[i].accept();
+    }
+
+    // Sorting by Salary (Bubble Sort)
+    for(i = 0; i < n - 1; i++) {
+        for(j = 0; j < n - i - 1; j++) {
+            if(M[j].getSalary() > M[j + 1].getSalary()) {
+                temp = M[j];
+                M[j] = M[j + 1];
+                M[j + 1] = temp;
+            }
+        }
+    }
+
+    cout << "\nManager Details in Ascending Order of Salary:\n";
+    for(i = 0; i < n; i++) {
+        M[i].display();
+    }
+
+    // Search for a particular Manager
+    cout << "\nEnter Manager ID to Search: ";
+    cin >> id;
+
+    for(i = 0; i < n; i++) {
+        if(M[i].search(id)) {
+            cout << "\nManager Found:\n";
+            M[i].display();
+            break;
+        }
+    }
+    if(i == n) {
+        cout << "\nManager Not Found!\n";
+    }
+
+    getch();
+}
