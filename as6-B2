@@ -1,0 +1,62 @@
+#include<iostream.h>
+#include<string.h>
+#include<conio.h>
+
+class MyString {
+    char *str;
+    int len;
+    
+public:
+    MyString(const char *s = "") {
+        len = strlen(s);
+        str = new char[len + 1];
+        strcpy(str, s);
+    }
+
+    int operator<(MyString &s) {
+        return len < s.len;
+    }
+
+    int operator!=(MyString &s) {
+        return strcmp(str, s.str) != 0;
+    }
+
+    MyString operator+(MyString &s) {
+        MyString temp;
+        temp.len = len + s.len;
+        temp.str = new char[temp.len + 1];
+        strcpy(temp.str, str);
+        strcat(temp.str, s.str);
+        return temp;
+    }
+
+    void display() {
+        cout << str << endl;
+    }
+
+    ~MyString() {
+        delete[] str;
+    }
+};
+
+void main() {
+    clrscr();
+    
+    MyString s1("Hello"), s2("World"), s3;
+    
+    if (s1 < s2)
+        cout << "String 1 is smaller than String 2" << endl;
+    else
+        cout << "String 1 is not smaller than String 2" << endl;
+    
+    if (s1 != s2)
+        cout << "Strings are not equal" << endl;
+    else
+        cout << "Strings are equal" << endl;
+    
+    s3 = s1 + s2;
+    cout << "Concatenated String: ";
+    s3.display();
+    
+    getch();
+}
