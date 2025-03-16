@@ -1,0 +1,95 @@
+#include<iostream.h>
+#include<conio.h>
+#include<fstream.h>
+#include<string.h>
+
+class Newspaper {
+    char Name[30];
+    char Publisher[30];
+    float Cost;
+
+public:
+    void accept() {
+        cout << "\nEnter Newspaper Name: ";
+        cin >> Name;
+        cout << "Enter Publisher Name: ";
+        cin >> Publisher;
+        cout << "Enter Cost: ";
+        cin >> Cost;
+    }
+
+    void display() {
+        cout << "\n" << Name << "\t" << Publisher << "\t" << Cost;
+    }
+};
+
+// Function to write newspaper data to file
+void writeToFile() {
+    ofstream fout("Newspaper.txt", ios::app);
+    int n;
+    cout << "\nEnter the number of newspapers: ";
+    cin >> n;
+    Newspaper np;
+
+    for (int i = 0; i < n; i++) {
+        np.accept();
+        fout.write((char*)&np, sizeof(np));
+    }
+    
+    fout.close();
+    cout << "\nNewspaper Details Stored Successfully!";
+}
+
+// Function to read and display all newspaper data from file
+void readFromFile() {
+    Newspaper np;
+    ifstream fin("Newspaper.txt");
+    if (!fin) {
+        cout << "\nFile Not Found!";
+        return;
+    }
+    cout << "\nName\tPublisher\tCost";
+    while (fin.read((char*)&np, sizeof(np))) {
+        np.display();
+    }
+    fin.close();
+}
+
+// Function to count total newspapers stored in file
+void countNewspapers() {
+    Newspaper np;
+    ifstream fin("Newspaper.txt");
+    if (!fin) {
+        cout << "\nFile Not Found!";
+        return;
+    }
+
+    int count = 0;
+    while (fin.read((char*)&np, sizeof(np))) {
+        count++;
+    }
+    
+    cout << "\nTotal Newspapers in File: " << count;
+    fin.close();
+}
+
+// Main menu
+void main() {
+    clrscr();
+    int choice;
+    do {
+        cout << "\n\n1. Add Newspapers\n2. Display Newspapers\n3. Count Newspapers\n4. Exit";
+        cout << "\nEnter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: writeToFile(); break;
+            case 2: readFromFile(); break;
+            case 3: countNewspapers(); break;
+            case 4: exit(0);
+            default: cout << "\nInvalid Choice!";
+        }
+    } while (choice != 4);
+
+    getch();
+}
