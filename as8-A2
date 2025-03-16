@@ -1,0 +1,53 @@
+#include<iostream.h>
+#include<conio.h>
+#include<fstream.h>
+#include<string.h>
+
+void main() {
+    clrscr();
+    
+    char filename[20], word[20], temp[50];
+    int charCount = 0, wordCount = 0, lineCount = 0, spaceCount = 0, wordOccurrences = 0;
+
+    cout << "Enter file name: ";
+    cin >> filename;
+
+    ifstream file(filename);
+    
+    if (!file) {
+        cout << "File not found!";
+        getch();
+        return;
+    }
+
+    cout << "Enter word to search: ";
+    cin >> word;
+
+    while (file.getline(temp, 50)) {
+        lineCount++;
+
+        for (int i = 0; temp[i] != '\0'; i++) {
+            charCount++;
+            if (temp[i] == ' ')
+                spaceCount++;
+        }
+
+        char *token = strtok(temp, " ");
+        while (token != NULL) {
+            wordCount++;
+            if (strcmp(token, word) == 0)
+                wordOccurrences++;
+            token = strtok(NULL, " ");
+        }
+    }
+
+    file.close();
+
+    cout << "\nTotal Characters: " << charCount;
+    cout << "\nTotal Words: " << wordCount;
+    cout << "\nTotal Lines: " << lineCount;
+    cout << "\nTotal Spaces: " << spaceCount;
+    cout << "\nOccurrences of '" << word << "': " << wordOccurrences;
+
+    getch();
+}
