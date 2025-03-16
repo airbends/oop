@@ -1,0 +1,85 @@
+#include<iostream.h>
+#include<conio.h>
+#include<iomanip.h>
+#include<string.h>
+
+class Marksheet {
+    int Seat_No, Int_Marks[4], Ext_Marks[4], Total[4], Grand_Total;
+    char Student_Name[50], Class[20], Subject_Name[4][20];
+    float Percentage;
+    char Grade;
+
+public:
+    void accept() {
+        cout << "Enter Seat Number: ";
+        cin >> Seat_No;
+        cout << "Enter Student Name: ";
+        cin.ignore();
+        cin.getline(Student_Name, 50);
+        cout << "Enter Class: ";
+        cin >> Class;
+        
+        Grand_Total = 0;
+        
+        for(int i = 0; i < 4; i++) {
+            cout << "Enter Subject " << i + 1 << " Name: ";
+            cin >> Subject_Name[i];
+            cout << "Enter Internal Marks: ";
+            cin >> Int_Marks[i];
+            cout << "Enter External Marks: ";
+            cin >> Ext_Marks[i];
+            
+            Total[i] = Int_Marks[i] + Ext_Marks[i];
+            Grand_Total += Total[i];
+        }
+
+        Percentage = (float)Grand_Total / 4;
+
+        if(Percentage >= 90)
+            Grade = 'A';
+        else if(Percentage >= 75)
+            Grade = 'B';
+        else if(Percentage >= 60)
+            Grade = 'C';
+        else if(Percentage >= 40)
+            Grade = 'D';
+        else
+            Grade = 'F';
+    }
+
+    void display() {
+        cout << "\n----------------------------------";
+        cout << "\nMarksheet";
+        cout << "\n----------------------------------";
+        cout << "\nSeat No: " << Seat_No;
+        cout << "\nName: " << Student_Name;
+        cout << "\nClass: " << Class;
+        cout << "\n----------------------------------";
+        cout << "\nSubject\t\tInt Marks\tExt Marks\tTotal";
+        cout << "\n----------------------------------";
+        
+        for(int i = 0; i < 4; i++) {
+            cout << "\n" << Subject_Name[i] << "\t\t" 
+                 << setw(5) << Int_Marks[i] << "\t\t"
+                 << setw(5) << Ext_Marks[i] << "\t\t"
+                 << setw(5) << Total[i];
+        }
+
+        cout << "\n----------------------------------";
+        cout << "\nGrand Total: " << Grand_Total;
+        cout << "\nPercentage: " << Percentage << "%";
+        cout << "\nGrade: " << Grade;
+        cout << "\n----------------------------------\n";
+    }
+};
+
+void main() {
+    clrscr();
+    
+    Marksheet M;
+    
+    M.accept();
+    M.display();
+    
+    getch();
+}
