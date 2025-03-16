@@ -1,0 +1,46 @@
+#include<iostream.h>
+#include<conio.h>
+#include<iomanip.h>  // For setw() and setprecision()
+
+class Employee {
+    int Emp_Id;
+    char Emp_Name[50];
+    float Basic_Salary, HRA, DA, Gross_Salary;
+
+public:
+    void accept() {
+        cout << "Enter Employee ID: ";
+        cin >> Emp_Id;
+        cout << "Enter Employee Name: ";
+        cin.ignore();
+        cin.getline(Emp_Name, 50);
+        cout << "Enter Basic Salary: ";
+        cin >> Basic_Salary;
+        
+        DA = 0.25 * Basic_Salary;
+        HRA = 0.40 * Basic_Salary;
+        Gross_Salary = Basic_Salary + DA + HRA;
+    }
+
+    void display() {
+        cout << setw(10) << "Emp_Id" << setw(20) << "Emp_Name" 
+             << setw(15) << "Basic_Salary" << setw(10) << "HRA"
+             << setw(10) << "DA" << setw(15) << "Gross_Salary" << endl;
+
+        cout << setw(10) << Emp_Id << setw(20) << Emp_Name
+             << setw(15) << setprecision(3) << Basic_Salary
+             << setw(10) << HRA << setw(10) << DA 
+             << setw(15) << Gross_Salary << endl;
+    }
+};
+
+void main() {
+    clrscr();
+    
+    Employee E;
+    E.accept();
+    cout << "\nEmployee Salary Details:\n";
+    E.display();
+    
+    getch();
+}
