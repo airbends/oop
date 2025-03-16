@@ -1,0 +1,73 @@
+#include<iostream.h>
+#include<conio.h>
+#include<string.h>
+
+class Train {
+    int Train_No, No_of_Seats;
+    char Train_Name[50], Source_Station[50], Destination_Station[50];
+
+public:
+    void accept() {
+        cout << "Enter Train No: ";
+        cin >> Train_No;
+        cout << "Enter Train Name: ";
+        cin.ignore();
+        cin.getline(Train_Name, 50);
+        cout << "Enter No. of Seats: ";
+        cin >> No_of_Seats;
+        cout << "Enter Source Station: ";
+        cin.ignore();
+        cin.getline(Source_Station, 50);
+        cout << "Enter Destination Station: ";
+        cin.getline(Destination_Station, 50);
+    }
+
+    void display() {
+        cout << "\nTrain No: " << Train_No;
+        cout << "\nTrain Name: " << Train_Name;
+        cout << "\nNo. of Seats: " << No_of_Seats;
+        cout << "\nSource: " << Source_Station;
+        cout << "\nDestination: " << Destination_Station << "\n";
+    }
+
+    int search(char src[], char dest[]) {
+        return (strcmp(Source_Station, src) == 0 && strcmp(Destination_Station, dest) == 0);
+    }
+};
+
+void main() {
+    clrscr();
+    
+    int n, i;
+    char src[50], dest[50];
+    
+    cout << "Enter number of trains: ";
+    cin >> n;
+
+    Train T[n];
+
+    for(i = 0; i < n; i++) {
+        cout << "\nEnter details of Train " << i + 1 << ":\n";
+        T[i].accept();
+    }
+
+    cout << "\nAll Train Details:\n";
+    for(i = 0; i < n; i++) {
+        T[i].display();
+    }
+
+    cout << "\nEnter Source Station to Search: ";
+    cin.ignore();
+    cin.getline(src, 50);
+    cout << "Enter Destination Station to Search: ";
+    cin.getline(dest, 50);
+
+    cout << "\nTrains from " << src << " to " << dest << ":\n";
+    for(i = 0; i < n; i++) {
+        if(T[i].search(src, dest)) {
+            T[i].display();
+        }
+    }
+
+    getch();
+}
