@@ -1,0 +1,51 @@
+#include<iostream.h>
+#include<conio.h>
+#include<fstream.h>
+
+class Student {
+    char name[30];
+    int marks[3];
+    float avg;
+    char grade;
+
+public:
+    void readFromFile(ifstream &fin) {
+        fin >> name >> marks[0] >> marks[1] >> marks[2];
+        avg = (marks[0] + marks[1] + marks[2]) / 3.0;
+        if (avg >= 90) grade = 'A';
+        else if (avg >= 75) grade = 'B';
+        else if (avg >= 60) grade = 'C';
+        else grade = 'D';
+    }
+
+    void writeToFile(ofstream &fout) {
+        fout << name << "\t" << avg << "\t" << grade << "\n";
+    }
+};
+
+void main() {
+    clrscr();
+    Student s[4];
+
+    ifstream fin("students.txt");
+    if (!fin) {
+        cout << "Error opening file!";
+        getch();
+        return;
+    }
+
+    ofstream fout("results.txt");
+
+    fout << "Name\tAverage\tGrade\n";
+
+    for (int i = 0; i < 4; i++) {
+        s[i].readFromFile(fin);
+        s[i].writeToFile(fout);
+    }
+
+    fin.close();
+    fout.close();
+
+    cout << "\nResults written to results.txt";
+    getch();
+}
