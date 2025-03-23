@@ -1,0 +1,29 @@
+#include<iostream.h>
+#include<conio.h>
+
+template <class T>
+class Square {
+    T num;
+public:
+    Square(T n) {
+        num = n;
+    }
+
+    T calculate() {
+        return num * num;
+    }
+};
+
+void main() {
+    clrscr();
+
+    Square<int> intSquare(5);
+    Square<float> floatSquare(3.5);
+    Square<double> doubleSquare(2.75);
+
+    cout << "Square of Integer 5: " << intSquare.calculate() << "\n";
+    cout << "Square of Float 3.5: " << floatSquare.calculate() << "\n";
+    cout << "Square of Double 2.75: " << doubleSquare.calculate() << "\n";
+
+    getch();
+}
