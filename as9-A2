@@ -1,0 +1,32 @@
+#include<iostream.h>
+#include<conio.h>
+
+template <class T>
+T findMax(T a, T b) {
+    return (a > b) ? a : b;
+}
+
+template <class T>
+T findMin(T a, T b) {
+    return (a < b) ? a : b;
+}
+
+void main() {
+    clrscr();
+    int int1, int2;
+    float float1, float2;
+
+    
+    cout << "Enter two integer numbers: ";
+    cin >> int1 >> int2;
+    cout << "Maximum Integer: " << findMax(int1, int2) << "\n";
+    cout << "Minimum Integer: " << findMin(int1, int2) << "\n";
+
+  
+    cout << "\nEnter two float numbers: ";
+    cin >> float1 >> float2;
+    cout << "Maximum Float: " << findMax(float1, float2) << "\n";
+    cout << "Minimum Float: " << findMin(float1, float2) << "\n";
+
+    getch();
+}
