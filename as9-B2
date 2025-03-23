@@ -1,0 +1,34 @@
+#include<iostream.h>
+#include<conio.h>
+
+const float PI = 3.14;
+
+template <class T>
+class Area {
+public:
+    T circle(T radius) {
+        return PI * radius * radius;
+    }
+
+    T rectangle(T length, T width) {
+        return length * width;
+    }
+};
+
+void main() {
+    clrscr();
+
+    Area<int> intArea;
+    Area<float> floatArea;
+    Area<double> doubleArea;
+
+    cout << "Circle Area (int radius 5): " << intArea.circle(5) << "\n";
+    cout << "Circle Area (float radius 3.5): " << floatArea.circle(3.5) << "\n";
+    cout << "Circle Area (double radius 4.75): " << doubleArea.circle(4.75) << "\n\n";
+
+    cout << "Rectangle Area (int 4 x 6): " << intArea.rectangle(4, 6) << "\n";
+    cout << "Rectangle Area (float 4.5 x 3.5): " << floatArea.rectangle(4.5, 3.5) << "\n";
+    cout << "Rectangle Area (double 5.25 x 2.75): " << doubleArea.rectangle(5.25, 2.75) << "\n";
+
+    getch();
+}
